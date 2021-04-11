@@ -8,6 +8,7 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import scala.Tuple2;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class NetflixMovieAverage {
@@ -42,7 +43,8 @@ public class NetflixMovieAverage {
 
         List<Tuple2<Integer, Double>> output = average_ratings.collect();
         for (Tuple2<?,?> tuple : output) {
-            System.out.println(tuple._1() + " " + tuple._2());
+            Double avg_movie = Double.parseDouble(new DecimalFormat("#.##").format(tuple._2));
+            System.out.println(tuple._1() + " " + avg_movie);
         }
 
         spark.stop();
